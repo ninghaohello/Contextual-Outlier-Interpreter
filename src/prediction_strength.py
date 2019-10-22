@@ -50,9 +50,7 @@ def optimalK(data, num_fold, maxClusters=5, THRE_PS=0.90):
     pred_strength_avg = np.zeros(maxClusters+1)
     for nf in range(num_fold):
         # Split into training and testing samples
-        if (num_data/num_feat < 5):   # data is sparse, use synthetic sampling
-            print("The context seems to be too sparse...")
-        inds_train = np.random.choice(num_data, int(num_data*0.8), replace=False)
+        inds_train = np.random.choice(num_data, int(num_data*0.5), replace=False)
         inds_test = list(set(range(num_data)).difference(inds_train))
         data_train = data[inds_train]
         data_test = data[inds_test]

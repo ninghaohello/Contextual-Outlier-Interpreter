@@ -15,7 +15,7 @@ def main(args):
     labels_otlr = detect_outliers(args, X)
 
     # interpret outliers
-    sgnf_prior = 1
+    sgnf_prior = 1      # we do not have prior knowledge of feature importance for WBC data, so set it as scalar 1
     interpreter = OutlierInterpreter(X, labels_otlr, args.ratio_nbr,
                                      AUG=args.AUG, MIN_CLUSTER_SIZE=args.MIN_CLUSTER_SIZE, MAX_NUM_CLUSTER=args.MAX_NUM_CLUSTER,
                                      VAL_TIMES = args.VAL_TIMES, C_SVM=args.C_SVM, THRE_PS=args.THRE_PS, DEFK=args.DEFK)
@@ -59,10 +59,10 @@ def detect_outliers(args, X):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--dataset', type=str, default='wbc', help='which dataset to use')
+    parser.add_argument('--AUG', type=float, default=10, help='an additional attribute value as augmentation')
+    parser.add_argument('--detector', type=str, default='lof', help='which outlier detector to use')
     parser.add_argument('--ratio_nbr', type=float, default=0.1,
                         help='controls number of neighbors to use in kneighbors queries')
-    parser.add_argument('--detector', type=str, default='lof', help='which outlier detector to use')
-    parser.add_argument('--AUG', type=float, default=10, help='an additional attribute value as augmentation')
     parser.add_argument('--MIN_CLUSTER_SIZE', type=int, default=5,
                         help='minimum number of samples required in a cluster')
     parser.add_argument('--MAX_NUM_CLUSTER', type=int, default=4, help='maximum number of clusters for each context')

@@ -100,7 +100,7 @@ class OutlierInterpreter(object):
             k_best = optimalK(otlr_nbrs, self.VAL_TIMES, self.MAX_NUM_CLUSTER, self.THRE_PS)
         else:
             k_best = self.DEFK
-        k_best = min(k_best+1, self.MAX_NUM_CLUSTER)     # empirically, set best K a little larger
+        k_best = min(k_best+1, self.MAX_NUM_CLUSTER)     # empirically, it is better to have a lager K
         # print('Best k:', k_best)
 
         # clutering the context
