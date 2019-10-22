@@ -6,26 +6,6 @@ from sklearn.cluster import KMeans
 from sklearn.datasets.samples_generator import make_blobs
 
 
-def expand_data(data, n_ref=2, dist_perturb=0.5):
-    n_sample = data.shape[0]
-    n_feat = data.shape[1]
-    data_expand = np.zeros([n_sample, n_feat])
-
-    nbrs = NearestNeighbors(n_neighbors=n_ref).fit(data)
-    for n in range(n_sample):
-        ind = np.random.randint(0, n_sample)
-        point_org = [data[ind]]
-        distNbs, _ = nbrs.kneighbors(point_org)
-
-        perturb = np.mean(distNbs[0]) * dist_perturb
-        shift_direction = np.random.random(data.shape[1])
-        shift_direction /= np.linalg.norm(shift_direction)  # normalize
-
-        data_expand[n] = data[ind] + perturb*shift_direction
-
-    return data_expand
-
-
 def ClosestCenter(point, centroids):
     # Find the closest center over all centroids
     min_index = -1
@@ -71,7 +51,7 @@ def optimalK(data, num_fold, maxClusters=5, THRE_PS=0.90):
     for nf in range(num_fold):
         # Split into training and testing samples
         if (num_data/num_feat < 5):   # data is sparse, use synthetic sampling
-            print("Context may be too sparse...")
+            print("The context seems to be too sparse...")
         inds_train = np.random.choice(num_data, int(num_data*0.8), replace=False)
         inds_test = list(set(range(num_data)).difference(inds_train))
         data_train = data[inds_train]
