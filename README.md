@@ -1,4 +1,4 @@
-# Contextual-Outlier-Interpreter
+# Contextual-Outlier-Interpretation
 
 This project provides an implementation for the [paper](https://www.ijcai.org/proceedings/2018/0341.pdf): <br>
 
